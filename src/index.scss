@@ -1,0 +1,142 @@
+#root {
+  height: 100vh;
+  display: flex;
+  background-color: #e9efed;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.airport {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 800px;
+}
+
+.header {
+  margin: 50px auto;
+
+  &__title {
+    font-size: 48px;
+    text-transform: uppercase;
+    color: #2f2f2f;
+    font-weight: 300;
+  }
+}
+
+.form {
+  display: flex;
+  position: relative;
+  height: 64px;
+
+  &__input {
+    width: 420px;
+    padding-left: 40px;
+    font-size: 24px;
+    border: none;
+    border-radius: 5px;
+  }
+
+  &__input-icon {
+    position: absolute;
+    color: #9fa0a2;
+    font-size: 24px;
+    font-weight: 100;
+    top: calc(50% - 12px);
+    left: 10px;
+  }
+
+  &__search-btn {
+    border: none;
+    width: 150px;
+    background-color: #20b7ee;
+    color: #fff;
+    font-size: 24px;
+    text-transform: uppercase;
+    border-top-right-radius: 80px;
+    text-align: left;
+    padding-left: 10px;
+    cursor: pointer;
+  }
+}
+
+.navigation {
+  background-color: #fff;
+  border-radius: 80px 80px 0 0;
+
+  &__departues {
+    border-radius: 80px 80px 0 0;
+  }
+  &__arrivals {
+    border-radius: 80px 80px 0 0;
+  }
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  width: 400px;
+  height: 48px;
+  color: #20b7ee;
+  background-color: #fff;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: #20b7ee;
+    color: #fff;
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  &__terminal {
+    font-weight: 700;
+    font-size: 24px;
+
+    & span {
+      color: #69c153;
+      width: 35px;
+      height: 35px;
+      border: 2px solid #69c153;
+      display: flex;
+      margin: auto;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+    }
+  }
+}
+
+tbody tr:nth-child(even) {
+  background-color: #fff;
+}
+
+tbody tr:hover {
+  background-color: #20b7ee;
+  cursor: pointer;
+
+  .table__terminal span {
+    border: 2px solid #fff;
+    color: #fff;
+  }
+
+  td {
+    color: #fff;
+  }
+}
+
+th,
+td {
+  padding: 10px 5px;
+  border: none;
+}
+th {
+  color: #ccc;
+  background-color: #fff;
+}
+
+td {
+  text-align: center;
+  color: #555;
+}
