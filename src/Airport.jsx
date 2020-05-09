@@ -8,14 +8,30 @@ import moment from 'moment';
 class Airport extends Component {
   state = {
     flights: [],
+    departuesFlight: [],
+    arrivalsFlight: [],
+  }
+
+  getFlightToday = () => {
+    const today = moment(new Date()).format('DD-MM-YYYY'); 
+    fetch(`https://api.iev.aero/api/flights/${today}`)
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Failed flight');
+    }).then(flightData => this.setState({
+      departuesFlight: flightData.body.departure,
+      arrivalsFlight: flightData.body.arrival,
+    }))
   }
   
   render() {
     return (
       <div className="airport">
         <Header />
-        <Navigation />
-        <Scoreboard flights={this.state.flights}/>
+        <Navigation getFlightToday={this.getFlightToday}/>
+        <Scoreboard flights={this.state.flights} departuesFlight={this.state.departuesFlight}/>
       </div>
     );
   }

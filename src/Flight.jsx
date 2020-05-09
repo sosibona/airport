@@ -1,49 +1,32 @@
 import React from "react";
+import moment from "moment";
 
-const Flight = () => {
+const Flight = ({ flight }) => {
+  console.log(flight);
+  let logoFlight = flight.airline ? (
+    <>
+      <img
+        className="table__logo-airline"
+        src={flight.airline.en.logoSmallName}
+        alt="logo company"
+      />
+      {flight.airline.en.name}
+    </>
+  ) : (
+    <>flight["carrierID.code"]</>
+  );
+  const flightTime = moment(flight.timeDepShedule).format("HH:mm");
   return (
-    <tbody>
-      <tr>
-        <td className="table__terminal">
-          <span>A</span>
-        </td>
-        <td>0:55</td>
-        <td>Larnaca</td>
-        <td>Landed 0:53</td>
-        <td>Wizizr</td>
-        <td>W66260</td>
-      </tr>
-      <tr>
-        <td className="table__terminal">
-          <span>A</span>
-        </td>
-        <td>2:55</td>
-        <td>Athens</td>
-        <td>Landed 2:00</td>
-        <td>SkyUp</td>
-        <td>S234R2</td>
-      </tr>
-      <tr>
-        <td className="table__terminal">
-          <span>A</span>
-        </td>
-        <td>0:55</td>
-        <td>Larnaca</td>
-        <td>Landed 0:53</td>
-        <td>Wizizr</td>
-        <td>W66260</td>
-      </tr>
-      <tr>
-        <td className="table__terminal">
-          <span>A</span>
-        </td>
-        <td>2:55</td>
-        <td>Athens</td>
-        <td>Landed 2:00</td>
-        <td>SkyUp</td>
-        <td>S234R2</td>
-      </tr>
-    </tbody>
+    <tr>
+      <td className={flight.term === 'A' ? "table__terminal-a" : "table__terminal-d"}>
+        <span>{flight.term}</span>
+      </td>
+      <td>{flightTime}</td>
+      <td>{flight["airportToID.city_en"]}</td>
+      <td>{flight.status === "CX" ? "Canceled" : `${flight.status}`}</td>
+      <td className="table__airline">{logoFlight}</td>
+      <td>{flight["carrierID.IATA"] + flight.fltNo}</td>
+    </tr>
   );
 };
 
