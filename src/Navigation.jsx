@@ -1,10 +1,13 @@
 import React from "react";
+import Departure from './Departure';
+import Arrival from './Arrival';
 
-const Navigation = ({getFlightToday}) => {
+
+const Navigation = () => {
   return (
     <nav className="navigation">
-      <button className="btn navigation__departues" onClick={getFlightToday}>departues</button>
-      <button className="btn navigation__arrivals" onClick={getFlightToday}>arrivals</button>
+      <Departure />
+      <Arrival />
     </nav>
   );
 };
