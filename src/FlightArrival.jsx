@@ -2,7 +2,6 @@ import React from "react";
 import moment from "moment";
 
 const FlightArrival = ({ flight }) => {
-  console.log(flight);
   let logoFlight = flight.airline ? (
     <>
       <img
@@ -18,7 +17,11 @@ const FlightArrival = ({ flight }) => {
   const flightTime = moment(flight.timeLandCalc).format("HH:mm");
   return (
     <tr>
-      <td className={flight.term === 'A' ? "table__terminal-a" : "table__terminal-d"}>
+      <td
+        className={
+          flight.term === "A" ? "table__terminal-a" : "table__terminal-d"
+        }
+      >
         <span>{flight.term}</span>
       </td>
       <td>{flightTime}</td>

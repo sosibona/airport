@@ -1,16 +1,31 @@
 import React from "react";
 import FlightArrival from "./FlightArrival";
-import moment from "moment";
 
-const today = moment(new Date()).format("DD-MM-YYYY");
+const Arrival = ({ flights, searchText }) => {
+  if (!flights) return null;
 
-const Arrival = ({ flights }) => {
-  if (flights.length === 0) return null;
-  const flightList = flights.arrival
-    .filter(
-      (flight) => today === moment(flight.timeLandCalc).format("DD-MM-YYYY")
-    )
-    .map((flight) => <FlightArrival key={flight.ID} flight={flight} />);
+  let flightList;
+  if (!searchText) {
+    flightList = flights.arrival.map((flight) => (
+      <FlightArrival key={flight.ID} flight={flight} />
+    ));
+  } else {
+    flightList = flights.arrival
+      .filter(
+        (flight) =>
+          searchText.toLowerCase() ===
+          flight["airportFromID.city_en"].toLowerCase()
+      )
+      .map((flight) => <FlightArrival key={flight.ID} flight={flight} />);
+  }
+
+  if (flightList.length === 0) return <h1>No Flight</h1>;
+
+  // const flightList = flights.arrival
+  //   .filter(
+  //     (flight) => today === moment(flight.timeLandCalc).format("DD-MM-YYYY")
+  //   )
+  //   .map((flight) => <FlightArrival key={flight.ID} flight={flight} />);
   return (
     <div>
       <div className="flight-scoreboard">

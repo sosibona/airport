@@ -1,33 +1,27 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class SearchForm extends Component {
-  state = {
-    value: "",
-    flyghts: []
-  }
+const SearchForm = ({ onSearch }) => {
+  const [value, setValue] = useState("");
 
-  handleChange = (event) => {
-    this.setState({
-      value: event.target.value,
-    })
-  }
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
 
-  render() {
-    console.log(this.state.value)
-    return (
-      <div className="form">
-        <i className="fas fa-search form__input-icon"></i>
-        <input
-          className="form__input"
-          value={this.state.value}
-          type="text"
-          onChange={this.handleChange}
-          placeholder="Airline, destination or flight #"
-        />
-        <button className="form__search-btn">search</button>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="form">
+      <i className="fas fa-search form__input-icon"></i>
+      <input
+        className="form__input"
+        value={value}
+        type="text"
+        onChange={handleChange}
+        placeholder="Airline, destination or flight #"
+      />
+      <button className="form__search-btn" onClick={() => onSearch(value)}>
+        search
+      </button>
+    </div>
+  );
+};
 
 export default SearchForm;

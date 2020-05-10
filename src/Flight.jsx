@@ -2,7 +2,6 @@ import React from "react";
 import moment from "moment";
 
 const Flight = ({ flight }) => {
-  console.log(flight);
   let logoFlight = flight.airline ? (
     <>
       <img
