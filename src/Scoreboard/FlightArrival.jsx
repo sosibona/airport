@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import moment from "moment";
 
 const FlightArrival = ({ flight }) => {
@@ -32,5 +33,9 @@ const FlightArrival = ({ flight }) => {
     </tr>
   );
 };
+
+FlightArrival.propTypes ={
+  flight: PropTypes.shape().isRequired,
+}
 
 export default FlightArrival;

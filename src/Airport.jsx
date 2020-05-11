@@ -5,8 +5,9 @@ import Departure from "./Scoreboard/Departure";
 import Arrival from "./Scoreboard/Arrival";
 import { connect } from "react-redux";
 import { getFlightList } from "./flight/flight.actions";
+import PropTypes from 'prop-types';
 
-const Airport = ({ getFlightList, match }) => {
+const Airport = ({ getFlightList }) => {
   const [text, setText] = useState("");
 
   const setSearch = (text) => {
@@ -48,5 +49,9 @@ const Airport = ({ getFlightList, match }) => {
 const mapDispatch = {
   getFlightList: getFlightList,
 };
+
+Airport.propTypes = {
+  getFlightList: PropTypes.func.isRequired,
+}
 
 export default connect(null, mapDispatch)(Airport);

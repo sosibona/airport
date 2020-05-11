@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { filterFlight } from "../flight/flight.actions";
+import PropTypes from 'prop-types';
 
 const SearchForm = ({ filterFlight, text, setSearch }) => {
   const history = useHistory();
@@ -38,5 +39,11 @@ const SearchForm = ({ filterFlight, text, setSearch }) => {
 const mmapDispatch = {
   filterFlight: filterFlight,
 };
+
+SearchForm.propTypes = {
+  filterFlight: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  setSearch: PropTypes.func.isRequired,
+}
 
 export default connect(null, mmapDispatch)(SearchForm);

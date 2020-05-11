@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import FlightArrival from "./FlightArrival";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { filterFlightArrivalSelector } from "../flight/flight.selectors";
 import { filterFlight } from "../flight/flight.actions";
@@ -60,5 +61,12 @@ const mapState = (state) => {
 const mapDispatch = {
   filterFlight: filterFlight,
 };
+
+Arrival.propTypes = {
+  flights: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  filterFlight: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  setSearch: PropTypes.func.isRequired,
+}
 
 export default connect(mapState, mapDispatch)(Arrival);
