@@ -3,19 +3,25 @@ import Flight from "./Flight";
 import { connect } from "react-redux";
 import { filterFlightsDepartureSelector } from "./flight/flight.selectors";
 import { filterFlight } from "./flight/flight.actions";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 
-const Departure = ({ flights, filterFlight, match }) => {
+const Departure = ({ flights, filterFlight, search, setS }) => {
 
+  const history = useHistory();
+  const location = useLocation();
+
+  const { searchText } = useParams();
+  
   useEffect(() => {
-    console.log("arr", match);
-    const {searchText} = match.params;
-    console.log(searchText);
     if (searchText) {
-      filterFlight(searchText)
+      setS(searchText);
+      filterFlight(searchText);
+    } else {
+    history.push(`${location.pathname}/${search}`)
     }
-  }, [])
+    
+  }, []);
 
-  console.log('dep', match)
   if (!flights.length) return null;
 
   const flightList = flights.map((flight) => (
@@ -25,7 +31,6 @@ const Departure = ({ flights, filterFlight, match }) => {
 
   return (
     <div>
-      <button className="btn navigation__departues"></button>
       <div className="flight-scoreboard">
         <table className="table">
           <thead>

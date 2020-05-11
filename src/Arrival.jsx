@@ -3,18 +3,23 @@ import FlightArrival from "./FlightArrival";
 import { connect } from "react-redux";
 import { filterFlightArrivalSelector } from "./flight/flight.selectors";
 import { filterFlight } from "./flight/flight.actions";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 
-const Arrival = ({ flights, filterFlight, match }) => {
+const Arrival = ({ flights, filterFlight, search, setS }) => {
+  const history = useHistory();
+  const location = useLocation();
 
-  useEffect(() => {
-    console.log("arr", match);
-    const {searchText} = match.params;
-    console.log(searchText);
-    if (searchText) {
-      filterFlight(searchText)
-    }
-  }, [])
+  const { searchText } = useParams();
   
+  useEffect(() => {
+    if (searchText) {
+      setS(searchText);
+      filterFlight(searchText);
+    } else {
+    history.push(`${location.pathname}/${search}`)
+  }
+    
+  }, []);
 
   if (!flights.length) return null;
 
@@ -24,14 +29,8 @@ const Arrival = ({ flights, filterFlight, match }) => {
 
   if (flightList.length === 0) return <h1>No Flight</h1>;
 
-  // const flightList = flights.arrival
-  //   .filter(
-  //     (flight) => today === moment(flight.timeLandCalc).format("DD-MM-YYYY")
-  //   )
-  //   .map((flight) => <FlightArrival key={flight.ID} flight={flight} />);
   return (
     <div>
-      <button className="btn navigation__arrivals"></button>
       <div className="flight-scoreboard">
         <table className="table">
           <thead>
@@ -49,9 +48,6 @@ const Arrival = ({ flights, filterFlight, match }) => {
       </div>
     </div>
   );
-  // return (
-  //   <button className="btn navigation__arrivals">arrivals</button>
-  // )
 };
 
 const mapState = (state) => {
@@ -61,7 +57,7 @@ const mapState = (state) => {
 };
 
 const mapDispatch = {
-  filterFlight: filterFlight
-}
+  filterFlight: filterFlight,
+};
 
 export default connect(mapState, mapDispatch)(Arrival);
