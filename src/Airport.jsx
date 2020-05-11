@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
-import { Route, Link, Switch} from "react-router-dom";
+import { Route, Link, Switch, Redirect } from "react-router-dom";
 import Departure from "./Departure";
 import Arrival from "./Arrival";
 import { connect } from "react-redux";
 import { getFlightList } from "./flight/flight.actions";
 
 const Airport = ({ getFlightList, match }) => {
-  const [search, setS] = useState("");
+  const [text, setText] = useState("");
 
-  const setSearch = text => {
-    setS(text);
-  }
+  const setSearch = (text) => {
+    setText(text);
+  };
 
   useEffect(() => {
     getFlightList();
-  }, []);
+  }, [getFlightList]);
 
   return (
     <div className="airport">
-      <Header setS={setSearch}/>
+      <Header setSearch={setSearch} text={text} />
       <nav className="navigation">
         <button className="btn navigation__departues">
           <Link to="/departure">departues</Link>
@@ -29,12 +29,15 @@ const Airport = ({ getFlightList, match }) => {
         </button>
       </nav>
       <Switch>
-        <Route path="/departure/:searchText?" >
-          <Departure setS={setSearch} search={search}/>
+        <Route exact path="/">
+          <Redirect to="/departure"></Redirect>
         </Route>
-        <Route path="/arrival/:searchText?" >
-          <Arrival setS={setSearch} search={search}/>
-          </Route>
+        <Route path="/departure/:searchText?">
+          <Departure setSearch={setSearch} text={text} />
+        </Route>
+        <Route path="/arrival/:searchText?">
+          <Arrival setSearch={setSearch} text={text} />
+        </Route>
       </Switch>
     </div>
   );
@@ -47,4 +50,3 @@ const mapDispatch = {
 };
 
 export default connect(null, mapDispatch)(Airport);
-

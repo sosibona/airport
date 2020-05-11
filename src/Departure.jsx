@@ -5,7 +5,8 @@ import { filterFlightsDepartureSelector } from "./flight/flight.selectors";
 import { filterFlight } from "./flight/flight.actions";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
-const Departure = ({ flights, filterFlight, search, setS }) => {
+
+const Departure = ({ flights, filterFlight, text, setSearch }) => {
 
   const history = useHistory();
   const location = useLocation();
@@ -14,13 +15,14 @@ const Departure = ({ flights, filterFlight, search, setS }) => {
   
   useEffect(() => {
     if (searchText) {
-      setS(searchText);
+      setSearch(searchText);
       filterFlight(searchText);
     } else {
-    history.push(`${location.pathname}/${search}`)
+      text
+      ? history.push(`${location.pathname}/${text}`)
+      : history.push(`${location.pathname}`);
     }
-    
-  }, []);
+  }, [filterFlight, history, location.pathname, searchText, setSearch, text]);
 
   if (!flights.length) return null;
 

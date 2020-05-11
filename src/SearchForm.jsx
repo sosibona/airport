@@ -1,18 +1,20 @@
 import React from "react";
 import {connect} from 'react-redux';
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation} from "react-router-dom";
 import { filterFlight } from "./flight/flight.actions";
 
-const SearchForm = ({ filterFlight, setS }) => {  
+const SearchForm = ({ filterFlight, text, setSearch}) => { 
   const history = useHistory();
   const location = useLocation();
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const value = event.target.elements[0].value;
+    if (text === value) return;
     filterFlight(value);
-    setS(value);
-    history.push(`${location.pathname}${value}`)
+    setSearch(value);
+    value ? history.push(`${location.pathname}/${value}`) : history.push(``);
   };
 
   return (

@@ -5,21 +5,22 @@ import { filterFlightArrivalSelector } from "./flight/flight.selectors";
 import { filterFlight } from "./flight/flight.actions";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
-const Arrival = ({ flights, filterFlight, search, setS }) => {
+const Arrival = ({ flights, filterFlight, text, setSearch }) => {
   const history = useHistory();
   const location = useLocation();
 
   const { searchText } = useParams();
-  
+
   useEffect(() => {
     if (searchText) {
-      setS(searchText);
+      setSearch(searchText);
       filterFlight(searchText);
     } else {
-    history.push(`${location.pathname}/${search}`)
-  }
-    
-  }, []);
+      text
+        ? history.push(`${location.pathname}/${text}`)
+        : history.push(`${location.pathname}`);
+    }
+  }, [filterFlight, history, location.pathname, searchText, setSearch, text]);
 
   if (!flights.length) return null;
 
