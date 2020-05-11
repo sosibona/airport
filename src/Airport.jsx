@@ -1,75 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import { Route, Link, Switch } from "react-router-dom";
 import Departure from "./Departure";
 import Arrival from "./Arrival";
-import { Component } from "react";
-import moment from "moment";
+import { connect } from "react-redux";
+import { getFlightList } from "./flight/flight.actions";
 
-class Airport extends Component {
-  state = {
-    flights: null,
-    searchText: "",
-  };
+const Airport = ({ getFlightList }) => {
+  // const [searchText, setSearchText] = useState("");
 
-  onSearch = (searchText) => {
-    this.setState({
-      searchText,
-    });
-  };
+  useEffect(() => {
+    getFlightList();
+  }, []);
 
-  componentDidMount() {
-    const today = moment(new Date()).format("DD-MM-YYYY");
-    fetch(`https://api.iev.aero/api/flights/${today}`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Failed flight");
-      })
-      .then((flightData) => {
-        const flightArrival = flightData.body.arrival.filter(
-          (flight) => today === moment(flight.timeLandCalc).format("DD-MM-YYYY")
-        );
-        const flightDeparture = flightData.body.departure.filter(
-          (flight) =>
-            today === moment(flight.timeDepShedule).format("DD-MM-YYYY")
-        );
-        return this.setState({
-          flights: {
-            arrival: flightArrival,
-            departure: flightDeparture,
-          },
-        });
-      });
-  }
+  // const onSearch = (searchText) => {
+  //   setSearchText(searchText);
+  // };
 
-  render() {
-    return (
-      <div className="airport">
-        <Header onSearch={this.onSearch} />
-        <nav className="navigation">
-          <button className="btn navigation__departues">
-            <Link to="/departure">departues</Link>
-          </button>
-          <button className="btn navigation__arrivals">
-            <Link to="/arrival">arrivals</Link>
-          </button>
-        </nav>
-        <Switch>
-          <Route path="/departure">
-            <Departure
-              flights={this.state.flights}
-              searchText={this.state.searchText}
-            />
-          </Route>
-          <Route path="/arrival">
-            <Arrival flights={this.state.flights} searchText={this.state.searchText} />
-          </Route>
-        </Switch>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="airport">
+      <Header />
+      <nav className="navigation">
+        <button className="btn navigation__departues">
+          <Link to="/departure">departues</Link>
+        </button>
+        <button className="btn navigation__arrivals">
+          <Link to="/arrival">arrivals</Link>
+        </button>
+      </nav>
+      <Switch>
+        <Route path="/departure">
+          <Departure />
+        </Route>
+        <Route path="/arrival">
+          <Arrival />
+        </Route>
+      </Switch>
+    </div>
+  );
+};
 
-export default Airport;
+//
+
+const mapDispatch = {
+  getFlightList: getFlightList,
+};
+
+export default connect(null, mapDispatch)(Airport);

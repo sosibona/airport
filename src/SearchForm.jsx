@@ -1,27 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
+import {connect} from 'react-redux';
+import { useHistory, useLocation } from "react-router-dom";
+import { filterFlight } from "./flight/flight.actions";
 
-const SearchForm = ({ onSearch }) => {
-  const [value, setValue] = useState("");
+const SearchForm = ({ filterFlight }) => {
+  
+  const location = useLocation();
+  const history = useHistory();
+  
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const value = event.target.elements[0].value;
+    console.log('history');
+    console.log(history);
+    filterFlight(value);
+    history.push(`${location.pathname === "/" ? "departure" : location.pathname}/${value}`);
   };
 
   return (
-    <div className="form">
+    <form className="form" onSubmit={handleSubmit}>
       <i className="fas fa-search form__input-icon"></i>
       <input
         className="form__input"
-        value={value}
         type="text"
-        onChange={handleChange}
         placeholder="Airline, destination or flight #"
       />
-      <button className="form__search-btn" onClick={() => onSearch(value)}>
+      <button className="form__search-btn" type="submit">
         search
       </button>
-    </div>
+    </form>
   );
 };
 
-export default SearchForm;
+const mmapDispatch = {
+  filterFlight: filterFlight
+}
+
+export default connect(null, mmapDispatch)(SearchForm);

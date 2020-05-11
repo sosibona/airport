@@ -1,12 +1,15 @@
 import React from "react";
 import FlightArrival from "./FlightArrival";
+import {connect} from 'react-redux';
+import { filterFlightArrivalSelector } from "./flight/flight.selectors";
 
 const Arrival = ({ flights, searchText }) => {
-  if (!flights) return null;
+  console.log(flights)
+  if (!flights.length) return null;
 
   let flightList;
   if (!searchText) {
-    flightList = flights.arrival.map((flight) => (
+    flightList = flights.map((flight) => (
       <FlightArrival key={flight.ID} flight={flight} />
     ));
   } else {
@@ -50,4 +53,10 @@ const Arrival = ({ flights, searchText }) => {
   // )
 };
 
-export default Arrival;
+const mapState = state => {
+  return {
+    flights: filterFlightArrivalSelector(state),
+  }
+}
+
+export default connect(mapState)(Arrival);
