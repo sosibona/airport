@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
-import { Route, Link, Switch, useHistory, useLocation } from "react-router-dom";
+import { Route, Link, Switch} from "react-router-dom";
 import Departure from "./Departure";
 import Arrival from "./Arrival";
 import { connect } from "react-redux";
@@ -19,7 +19,7 @@ const Airport = ({ getFlightList, match }) => {
 
   return (
     <div className="airport">
-      <Header />
+      <Header setS={setSearch}/>
       <nav className="navigation">
         <button className="btn navigation__departues">
           <Link to="/departure">departues</Link>
