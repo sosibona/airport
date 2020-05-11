@@ -13,6 +13,10 @@ const SearchForm = ({ filterFlight, text, setSearch }) => {
     if (text === value) return;
     filterFlight(value);
     setSearch(value);
+    if (text && value) {
+      history.push(`${value}`)
+      return;
+    }
     value ? history.push(`${location.pathname}/${value}`) : history.push(``);
   };
 
