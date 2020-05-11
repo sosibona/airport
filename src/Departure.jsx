@@ -1,28 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Flight from "./Flight";
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 import { filterFlightsDepartureSelector } from "./flight/flight.selectors";
+import { filterFlight } from "./flight/flight.actions";
 
-const Departure = ({ flights, searchText }) => {
-  console.log(flights)
+const Departure = ({ flights, filterFlight, match }) => {
+
+  useEffect(() => {
+    console.log("arr", match);
+    const {searchText} = match.params;
+    console.log(searchText);
+    if (searchText) {
+      filterFlight(searchText)
+    }
+  }, [])
+
+  console.log('dep', match)
   if (!flights.length) return null;
-  let flightList;
-  if (!searchText) {
-    flightList = flights.map((flight) => (
-      <Flight key={flight.ID} flight={flight} />
-    ));
-  } else {
-    flightList = flights.departure
-      .filter((flight) => searchText.toLowerCase() === flight["airportToID.city_en"].toLowerCase())
-      .map((flight) => <Flight key={flight.ID} flight={flight} />);
-  }
 
-  if (flightList.length === 0) return (
-    <h1>No Flight</h1>
-  )
+  const flightList = flights.map((flight) => (
+    <Flight key={flight.ID} flight={flight} />
+  ));
+  if (flightList.length === 0) return <h1>No Flight</h1>;
 
   return (
     <div>
+      <button className="btn navigation__departues"></button>
       <div className="flight-scoreboard">
         <table className="table">
           <thead>
@@ -42,10 +45,15 @@ const Departure = ({ flights, searchText }) => {
   );
 };
 
-const mapState = state => {
+const mapState = (state) => {
   return {
     flights: filterFlightsDepartureSelector(state),
-  }
+  };
+};
+
+const mapDispatch = {
+  filterFlight: filterFlight
 }
 
-export default connect(mapState)(Departure);
+export default connect(mapState, mapDispatch)(Departure);
+
