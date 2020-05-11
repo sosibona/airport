@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { filterFlightsDepartureSelector } from "./flight/flight.selectors";
 
 const Departure = ({ flights, searchText }) => {
+  console.log(flights)
   if (!flights.length) return null;
   let flightList;
   if (!searchText) {

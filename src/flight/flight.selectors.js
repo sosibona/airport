@@ -24,7 +24,10 @@ export const filterFlightArrivalSelector = state => {
   console.log(searchText)
 
   if (!searchText) return arrivalFlights;
-  return arrivalFlights.filter(flight => searchText === flight["airportFromID.city_en"]);
+  const fliterCity = arrivalFlights.filter(flight => searchText === flight["airportFromID.city_en"]);
+  const filterAirline = arrivalFlights.filter(flight => searchText === flight.airline.en.name);
+  const filterflight = arrivalFlights.filter(flight => searchText === flight["carrierID.IATA"] + flight.fltNo);
+  return [...fliterCity, ...filterAirline, ...filterflight]
 }
 
 export const filterFlightsDepartureSelector = state => {
@@ -35,6 +38,9 @@ export const filterFlightsDepartureSelector = state => {
   console.log(searchText)
 
   if (!searchText) return departureFlights;
-  return departureFlights.filter(flight => searchText === flight["airportToID.city_en"]);
+  const fliterCity = departureFlights.filter(flight => searchText === flight["airportToID.city_en"]);
+  const filterAirline = departureFlights.filter(flight => searchText === flight.airline.en.name);
+  const filterflight = departureFlights.filter(flight => searchText === flight["carrierID.IATA"] + flight.fltNo);
+  return [...fliterCity, ...filterAirline, ...filterflight]
 }
 
