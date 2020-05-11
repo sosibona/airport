@@ -15,7 +15,6 @@ export const flightReducer = (state = initialState, action) => {
       }
     }
     case FILTER_FLIGHT: {
-      console.log('here')
       return {
         ...state,
         searchText: action.payload.text,  
