@@ -1,5 +1,6 @@
 import React from "react";
 import SearchForm from './SearchForm'
+import './header.scss'
 
 const Header = ({onSearch, setSearch, text}) => {
   return (

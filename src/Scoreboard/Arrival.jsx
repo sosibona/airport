@@ -1,34 +1,33 @@
 import React, { useEffect } from "react";
-import Flight from "./Flight";
+import FlightArrival from "./FlightArrival";
 import { connect } from "react-redux";
-import { filterFlightsDepartureSelector } from "./flight/flight.selectors";
-import { filterFlight } from "./flight/flight.actions";
+import { filterFlightArrivalSelector } from "../flight/flight.selectors";
+import { filterFlight } from "../flight/flight.actions";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
-
-const Departure = ({ flights, filterFlight, text, setSearch }) => {
-
+const Arrival = ({ flights, filterFlight, text, setSearch }) => {
   const history = useHistory();
   const location = useLocation();
 
   const { searchText } = useParams();
-  
+
   useEffect(() => {
     if (searchText) {
       setSearch(searchText);
       filterFlight(searchText);
     } else {
       text
-      ? history.push(`${location.pathname}/${text}`)
-      : history.push(`${location.pathname}`);
+        ? history.push(`${location.pathname}/${text}`)
+        : history.push(`${location.pathname}`);
     }
   }, [filterFlight, history, location.pathname, searchText, setSearch, text]);
 
   if (!flights.length) return null;
 
   const flightList = flights.map((flight) => (
-    <Flight key={flight.ID} flight={flight} />
+    <FlightArrival key={flight.ID} flight={flight} />
   ));
+
   if (flightList.length === 0) return <h1>No Flight</h1>;
 
   return (
@@ -54,13 +53,12 @@ const Departure = ({ flights, filterFlight, text, setSearch }) => {
 
 const mapState = (state) => {
   return {
-    flights: filterFlightsDepartureSelector(state),
+    flights: filterFlightArrivalSelector(state),
   };
 };
 
 const mapDispatch = {
-  filterFlight: filterFlight
-}
+  filterFlight: filterFlight,
+};
 
-export default connect(mapState, mapDispatch)(Departure);
-
+export default connect(mapState, mapDispatch)(Arrival);

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
-import { Route, Link, Switch, Redirect } from "react-router-dom";
-import Departure from "./Departure";
-import Arrival from "./Arrival";
+import Header from "./Header/Header";
+import { Route, NavLink, Switch, Redirect } from "react-router-dom";
+import Departure from "./Scoreboard/Departure";
+import Arrival from "./Scoreboard/Arrival";
 import { connect } from "react-redux";
 import { getFlightList } from "./flight/flight.actions";
 
@@ -21,12 +21,12 @@ const Airport = ({ getFlightList, match }) => {
     <div className="airport">
       <Header setSearch={setSearch} text={text} />
       <nav className="navigation">
-        <button className="btn navigation__departues">
-          <Link to="/departure">departues</Link>
-        </button>
-        <button className="btn navigation__arrivals">
-          <Link to="/arrival">arrivals</Link>
-        </button>
+      <NavLink activeClassName="active-tab" to="/departure"><button className="btn navigation__departues ac">
+          departues
+        </button></NavLink>
+        <NavLink activeClassName="active-tab" to="/arrival"><button className="btn navigation__arrivals ac">
+          arrivals
+        </button></NavLink>
       </nav>
       <Switch>
         <Route exact path="/">

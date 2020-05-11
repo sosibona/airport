@@ -1,12 +1,11 @@
 import React from "react";
-import {connect} from 'react-redux';
-import { useHistory, useLocation} from "react-router-dom";
-import { filterFlight } from "./flight/flight.actions";
+import { connect } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
+import { filterFlight } from "../flight/flight.actions";
 
-const SearchForm = ({ filterFlight, text, setSearch}) => { 
+const SearchForm = ({ filterFlight, text, setSearch }) => {
   const history = useHistory();
   const location = useLocation();
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,7 +32,7 @@ const SearchForm = ({ filterFlight, text, setSearch}) => {
 };
 
 const mmapDispatch = {
-  filterFlight: filterFlight
-}
+  filterFlight: filterFlight,
+};
 
 export default connect(null, mmapDispatch)(SearchForm);
