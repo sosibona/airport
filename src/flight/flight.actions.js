@@ -46,7 +46,7 @@ export const getFlightList = () => {
         return {
           id: flight.ID,
           term: flight.term,
-          flightTime: moment(flight.timeLandCalc).format("HH:mm"),
+          flightTime: moment(flight.timeDepShedule).format("HH:mm"),
           destination: flight["airportToID.city_en"],
           status: flight.status,
           airline: flight.airline,
