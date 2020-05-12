@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import moment from "moment";
 
 const FlightArrival = ({ flight }) => {
   let logoFlight = flight.airline ? (
@@ -12,8 +11,7 @@ const FlightArrival = ({ flight }) => {
       />
       {flight.airline.en.name}
     </>
-  ) : `${flight["carrierID.code"]}`;
-  const flightTime = moment(flight.timeLandCalc).format("HH:mm");
+  ) : <>{flight["carrierID.code"]}</>
   return (
     <tr>
       <td
@@ -23,11 +21,11 @@ const FlightArrival = ({ flight }) => {
       >
         <span>{flight.term}</span>
       </td>
-      <td>{flightTime}</td>
-      <td>{flight["airportFromID.city_en"]}</td>
+      <td>{flight.flightTime}</td>
+      <td>{flight.destination}</td>
       <td>{flight.status === "CX" ? "Canceled" : `${flight.status}`}</td>
       <td className="table__airline">{logoFlight}</td>
-      <td>{flight["carrierID.IATA"] + flight.fltNo}</td>
+      <td>{flight.flight}</td>
     </tr>
   );
 };

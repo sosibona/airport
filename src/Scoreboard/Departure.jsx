@@ -26,7 +26,7 @@ const Departure = ({ flights, filterFlight, text, setSearch }) => {
   if (!flights.length) return null;
 
   const flightList = flights.map((flight) => (
-    <Flight key={flight.ID} flight={flight} />
+    <Flight key={flight.id} flight={flight} />
   ));
   if (flightList.length === 0) return <h1>No Flight</h1>;
 

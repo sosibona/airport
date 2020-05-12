@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import moment from "moment";
 
 const Flight = ({ flight }) => {
   let logoFlight = flight.airline ? (
@@ -15,17 +14,16 @@ const Flight = ({ flight }) => {
   ) : (
     <>{flight["carrierID.code"]}</>
   );
-  const flightTime = moment(flight.timeDepShedule).format("HH:mm");
   return (
     <tr>
       <td className={flight.term === 'A' ? "table__terminal-a" : "table__terminal-d"}>
         <span>{flight.term}</span>
       </td>
-      <td>{flightTime}</td>
-      <td>{flight["airportToID.city_en"]}</td>
+      <td>{flight.flightTime}</td>
+      <td>{flight.destination}</td>
       <td>{flight.status === "CX" ? "Canceled" : `${flight.status}`}</td>
       <td className="table__airline">{logoFlight}</td>
-      <td>{flight["carrierID.IATA"] + flight.fltNo}</td>
+      <td>{flight.flight}</td>
     </tr>
   );
 };
