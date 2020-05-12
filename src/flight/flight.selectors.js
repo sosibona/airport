@@ -21,10 +21,13 @@ export const filterFlightArrivalSelector = state => {
   const searchText = searctTextSelector(state);
 
   if (!searchText) return arrivalFlights;
-  const fliterCity = arrivalFlights.filter(flight => searchText.toLowerCase() === flight["airportFromID.city_en"].toLowerCase());
-  const filterAirline = arrivalFlights.filter(flight => searchText.toLowerCase() === flight.airline.en.name.toLowerCase());
-  const filterflight = arrivalFlights.filter(flight => searchText.toLowerCase() === flight["carrierID.IATA"].toLowerCase() + flight.fltNo.toLowerCase());
-  return [...fliterCity, ...filterAirline, ...filterflight]
+  const filterCity = arrivalFlights
+    .filter(flight => searchText.toLowerCase() === flight["airportFromID.city_en"].toLowerCase());
+  const filterAirline = arrivalFlights
+    .filter(flight => searchText.toLowerCase() === flight.airline.en.name.toLowerCase());
+  const filterflight = arrivalFlights
+    .filter(flight => searchText.toLowerCase() === flight["carrierID.IATA"].toLowerCase() + flight.fltNo.toLowerCase());
+  return Array.from(new Set([...filterCity, ...filterAirline, ...filterflight]));
 }
 
 export const filterFlightsDepartureSelector = state => {
@@ -32,9 +35,9 @@ export const filterFlightsDepartureSelector = state => {
   const searchText = searctTextSelector(state);
 
   if (!searchText) return departureFlights;
-  const fliterCity = departureFlights.filter(flight => searchText.toLowerCase() === flight["airportToID.city_en"].toLowerCase());
+  const filterCity = departureFlights.filter(flight => searchText.toLowerCase() === flight["airportToID.city_en"].toLowerCase());
   const filterAirline = departureFlights.filter(flight => searchText.toLowerCase() === flight.airline.en.name.toLowerCase());
   const filterflight = departureFlights.filter(flight => searchText.toLowerCase() === flight["carrierID.IATA"].toLowerCase() + flight.fltNo.toLowerCase());
-  return [...fliterCity, ...filterAirline, ...filterflight]
+  return Array.from(new Set([...filterCity, ...filterAirline, ...filterflight]));
 }
 

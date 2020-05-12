@@ -12,9 +12,7 @@ const FlightArrival = ({ flight }) => {
       />
       {flight.airline.en.name}
     </>
-  ) : (
-    <>{flight["carrierID.code"]}</>
-  );
+  ) : `${flight["carrierID.code"]}`;
   const flightTime = moment(flight.timeLandCalc).format("HH:mm");
   return (
     <tr>

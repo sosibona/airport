@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { filterFlight } from "../flight/flight.actions";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const SearchForm = ({ filterFlight, text, setSearch }) => {
   const history = useHistory();
@@ -15,10 +15,14 @@ const SearchForm = ({ filterFlight, text, setSearch }) => {
     filterFlight(value);
     setSearch(value);
     if (text && value) {
-      history.push(`${value}`)
+      history.push(`${value}`);
       return;
     }
-    value ? history.push(`${location.pathname}/${value}`) : history.push(``);
+    if (value) {
+      history.push(`${location.pathname}/${value}`);
+    } else {
+      history.push(``);
+    }
   };
 
   return (
@@ -44,6 +48,6 @@ SearchForm.propTypes = {
   filterFlight: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   setSearch: PropTypes.func.isRequired,
-}
+};
 
 export default connect(null, mmapDispatch)(SearchForm);

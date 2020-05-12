@@ -10,5 +10,5 @@ export const fetchFlightList = () => {
         return response.json();
       }
       throw new Error("Failed flight");
-    }).then(flightList => flightList)
+    })
 }

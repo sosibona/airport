@@ -1,27 +1,25 @@
 import React, { useEffect } from "react";
 import Flight from "./Flight";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { filterFlightsDepartureSelector } from "../flight/flight.selectors";
 import { filterFlight } from "../flight/flight.actions";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
-
 const Departure = ({ flights, filterFlight, text, setSearch }) => {
-
   const history = useHistory();
   const location = useLocation();
 
   const { searchText } = useParams();
-  
+
   useEffect(() => {
     if (searchText) {
       setSearch(searchText);
       filterFlight(searchText);
     } else {
       text
-      ? history.push(`${location.pathname}/${text}`)
-      : history.push(`${location.pathname}`);
+        ? history.push(`${location.pathname}/${text}`)
+        : history.push(`${location.pathname}`);
     }
   }, [filterFlight, history, location.pathname, searchText, setSearch, text]);
 
@@ -60,15 +58,14 @@ const mapState = (state) => {
 };
 
 const mapDispatch = {
-  filterFlight: filterFlight
-}
+  filterFlight: filterFlight,
+};
 
 Departure.propTypes = {
   flights: PropTypes.arrayOf(PropTypes.shape).isRequired,
   filterFlight: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   setSearch: PropTypes.func.isRequired,
-}
+};
 
 export default connect(mapState, mapDispatch)(Departure);
-
