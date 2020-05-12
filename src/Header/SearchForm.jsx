@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { filterFlight } from "../flight/flight.actions";
 import PropTypes from "prop-types";
 
 const SearchForm = ({ filterFlight, text, setSearch }) => {
+  const [value, setValue] = useState("");
   const history = useHistory();
   const location = useLocation();
 
+  const handleChange = event => {
+    setValue(event.target.value);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const value = event.target.elements[0].value;
     if (text === value) return;
     filterFlight(value);
     setSearch(value);
@@ -31,6 +35,8 @@ const SearchForm = ({ filterFlight, text, setSearch }) => {
       <input
         className="form__input"
         type="text"
+        value={value}
+        onChange={handleChange}
         placeholder="Airline, destination or flight #"
       />
       <button className="form__search-btn" type="submit">
