@@ -13,8 +13,6 @@ const FlightList = ({ flightsD, flightsA, filterFlight, text, setSearch }) => {
 
   const { direction, searchText } = useParams();
 
-  console.log(direction, searchText)
-
   if (direction === 'departure') {
     flights = flightsD;
   } else {
