@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header/Header";
 import { Route, NavLink, Switch, Redirect } from "react-router-dom";
-import Departure from "./Scoreboard/Departure";
-import Arrival from "./Scoreboard/Arrival";
 import { connect } from "react-redux";
 import { getFlightList } from "./flight/flight.actions";
 import PropTypes from 'prop-types';
+import FlightList from "./Scoreboard/FlightList";
 
 const Airport = ({ getFlightList }) => {
   const [text, setText] = useState("");
@@ -33,12 +32,12 @@ const Airport = ({ getFlightList }) => {
         <Route exact path="/">
           <Redirect to="/departure"></Redirect>
         </Route>
-        <Route path="/departure/:searchText?">
-          <Departure setSearch={setSearch} text={text} />
+        <Route path="/:direction/:searchText?">
+          <FlightList setSearch={setSearch} text={text} />
         </Route>
-        <Route path="/arrival/:searchText?">
+        {/* <Route path="/arrival/:searchText?">
           <Arrival setSearch={setSearch} text={text} />
-        </Route>
+        </Route> */}
       </Switch>
     </div>
   );

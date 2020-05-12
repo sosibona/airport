@@ -6,7 +6,7 @@ import { filterFlightsDepartureSelector, filterFlightArrivalSelector } from "../
 import { filterFlight } from "../flight/flight.actions";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
-const Departure = ({ flightsD, flightsA, filterFlight, text, setSearch }) => {
+const FlightList = ({ flightsD, flightsA, filterFlight, text, setSearch }) => {
   const history = useHistory();
   const location = useLocation();
   let flights;
@@ -30,7 +30,7 @@ const Departure = ({ flightsD, flightsA, filterFlight, text, setSearch }) => {
         ? history.push(`${location.pathname}/${text}`)
         : history.push(`${location.pathname}`);
     }
-  }, [])
+  }, [filterFlight, history, location.pathname, searchText, setSearch, text]);
 
   if (!flights.length) return null;
 
@@ -71,11 +71,11 @@ const mapDispatch = {
   filterFlight: filterFlight,
 };
 
-Departure.propTypes = {
+FlightList.propTypes = {
   flightsD: PropTypes.arrayOf(PropTypes.shape).isRequired,
   filterFlight: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   setSearch: PropTypes.func.isRequired,
 };
 
-export default connect(mapState, mapDispatch)(Departure);
+export default connect(mapState, mapDispatch)(FlightList);
