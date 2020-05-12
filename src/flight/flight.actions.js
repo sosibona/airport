@@ -27,7 +27,7 @@ export const filterFlight = text => {
 export const getFlightList = () => {
   return function (dispatch) {
     fetchFlightList().then(flightList => {
-      const flightArrival = flightList.body.arrival.filter(
+      const flightArrival = flightList.body.arrival.sort((a, b) => new Date(a.timeLandCalc).getTime() - new Date(b.timeLandCalc).getTime()).filter(
         (flight) => today === moment(flight.timeLandCalc).format("DD-MM-YYYY")
       ).map(flight => {
         return {

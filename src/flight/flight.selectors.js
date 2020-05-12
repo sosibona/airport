@@ -24,7 +24,7 @@ export const filterFlightArrivalSelector = state => {
   const filterCity = arrivalFlights
     .filter(flight => searchText.toLowerCase() === flight.destination.toLowerCase());
   const filterAirline = arrivalFlights
-    .filter(flight => searchText.toLowerCase() === flight.airline.en.name.toLowerCase());
+    .filter(flight => flight.airline ? searchText.toLowerCase() === flight.airline.en.name.toLowerCase() : false);
   const filterflight = arrivalFlights
     .filter(flight => searchText.toLowerCase() === flight.flight.toLowerCase());
   return Array.from(new Set([...filterCity, ...filterAirline, ...filterflight]));
@@ -36,7 +36,7 @@ export const filterFlightsDepartureSelector = state => {
 
   if (!searchText) return departureFlights;
   const filterCity = departureFlights.filter(flight => searchText.toLowerCase() === flight.destination.toLowerCase());
-  const filterAirline = departureFlights.filter(flight => searchText.toLowerCase() === flight.airline.en.name.toLowerCase());
+  const filterAirline = departureFlights.filter(flight => flight.airline ? searchText.toLowerCase() === flight.airline.en.name.toLowerCase() : false);
   const filterflight = departureFlights.filter(flight => searchText.toLowerCase() === flight.flight.toLowerCase());
   return Array.from(new Set([...filterCity, ...filterAirline, ...filterflight]));
 }
