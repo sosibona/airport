@@ -35,9 +35,6 @@ const Airport = ({ getFlightList }) => {
         <Route path="/:direction/:searchText?">
           <FlightList setSearch={setSearch} text={text} />
         </Route>
-        {/* <Route path="/arrival/:searchText?">
-          <Arrival setSearch={setSearch} text={text} />
-        </Route> */}
       </Switch>
     </div>
   );
