@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Header from "./header/Header";
+import Header from "./headers/Header";
 import { Route, NavLink, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { getFlightList } from "./flight/flight.actions";
 import PropTypes from 'prop-types';
-import FlightList from "./scoreboard/FlightList";
+import FlightList from "./scoreboards/FlightList";
 
 const Airport = ({ getFlightList }) => {
   const [text, setText] = useState("");
