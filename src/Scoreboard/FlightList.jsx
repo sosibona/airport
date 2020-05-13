@@ -3,7 +3,7 @@ import Flight from "./Flight";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { filterFlightsDepartureSelector, filterFlightArrivalSelector } from "../flight/flight.selectors";
-import { filterFlight } from "../flight/flight.actions";
+import { setFilterText } from "../flight/flight.actions";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
 const FlightList = ({ flightsD, flightsA, filterFlight, text, setSearch }) => {
@@ -66,7 +66,7 @@ const mapState = (state) => {
 };
 
 const mapDispatch = {
-  filterFlight: filterFlight,
+  filterFlight: setFilterText,
 };
 
 FlightList.propTypes = {

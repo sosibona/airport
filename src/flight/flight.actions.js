@@ -15,7 +15,7 @@ export const flightListRecieved = flightList => {
   }
 }
 
-export const filterFlight = text => {
+export const setFilterText = text => {
   return {
     type: FILTER_FLIGHT,
     payload: {
@@ -27,7 +27,7 @@ export const filterFlight = text => {
 export const getFlightList = () => {
   return function (dispatch) {
     fetchFlightList().then(flightList => {
-      const flightArrival = flightList.body.arrival.sort((a, b) => new Date(a.timeLandCalc).getTime() - new Date(b.timeLandCalc).getTime()).filter(
+      const flightArrival = flightList.body.arrival.slice().sort((a, b) => new Date(a.timeLandCalc).getTime() - new Date(b.timeLandCalc).getTime()).filter(
         (flight) => today === moment(flight.timeLandCalc).format("DD-MM-YYYY")
       ).map(flight => {
         return {
@@ -40,7 +40,7 @@ export const getFlightList = () => {
           flight: flight["carrierID.IATA"] + flight.fltNo,
         }
       });
-      const flightDeparture = flightList.body.departure.filter(
+      const flightDeparture = flightList.body.departure.slice().sort((a, b) => new Date(a.timeLandCalc).getTime() - new Date(b.timeLandCalc).getTime()).filter(
         (flight) => today === moment(flight.timeDepShedule).format("DD-MM-YYYY")
       ).map(flight => {
         return {
