@@ -4,7 +4,7 @@
   &__title {
     font-size: 48px;
     text-transform: uppercase;
-    color: #2f2f2f;
+    color: #9fa0a2;
     font-weight: 300;
   }
 }
@@ -13,20 +13,19 @@
   display: flex;
   position: relative;
   height: 64px;
+  color: #9fa0a2;
+  font-size: 24px;
 
   &__input {
     width: 420px;
     padding-left: 40px;
-    font-size: 24px;
     border: none;
     border-radius: 5px;
+    outline: none;
   }
 
   &__input-icon {
     position: absolute;
-    color: #9fa0a2;
-    font-size: 24px;
-    font-weight: 100;
     top: calc(50% - 12px);
     left: 10px;
   }
@@ -36,7 +35,6 @@
     width: 150px;
     background-color: #20b7ee;
     color: #fff;
-    font-size: 24px;
     text-transform: uppercase;
     border-top-right-radius: 80px;
     text-align: left;
